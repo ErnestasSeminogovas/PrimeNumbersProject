@@ -1,3 +1,5 @@
+package factorisation;
+
 import javafx.concurrent.Task;
 import java.util.concurrent.CancellationException;
 
@@ -22,14 +24,6 @@ public class FactorisationTask extends Task<Void> {
         return increaseAmount;
     }
 
-    public String getFileName() {
-        return fileName;
-    }
-
-    public String getAlgorithm() {
-        return algorithm;
-    }
-
     public FactorisationTask() {
 
     }
@@ -45,7 +39,7 @@ public class FactorisationTask extends Task<Void> {
     }
 
     @Override
-    protected Void call() throws Exception {
+    public Void call() {
 
         ResultsWriter resultsWriter = new ResultsWriter(fileName);
         resultsWriter.resultFileCreation();

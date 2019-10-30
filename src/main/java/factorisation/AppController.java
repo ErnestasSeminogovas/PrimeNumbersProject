@@ -1,3 +1,5 @@
+package factorisation;
+
 public class AppController {
 
     private AppView view;
