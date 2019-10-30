@@ -1,3 +1,5 @@
+package factorisation;
+
 import javafx.scene.control.TextField;
 
 public class InputParser {

@@ -1,3 +1,5 @@
+import factorisation.FactorisationTask;
+import factorisation.Factoriser;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import org.junit.Rule;
@@ -9,12 +11,6 @@ public class FactorisationTaskTest {
 
     @Rule
     public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
-
-    @Test
-    public void testConstructor() {
-        FactorisationTask task = new FactorisationTask();
-        assertEquals(task, new FactorisationTask());
-    }
 
     @Test
     public void testComplexConstructorFirstNumber() {

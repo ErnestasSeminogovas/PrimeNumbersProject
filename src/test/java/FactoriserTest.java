@@ -1,9 +1,5 @@
+import factorisation.Factoriser;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 import static org.junit.Assert.*;
 
@@ -24,10 +20,6 @@ public class FactoriserTest {
         assertEquals(null, Factoriser.regularFactoriser(0) );
     }
 
-    @Test
-    public void regularFactoriserTestOne() {
-        assertEquals(1, Factoriser.regularFactoriser(2) );
-    }
 
     @Test
     public void regularFactoriserTestLarge() {
@@ -39,7 +31,7 @@ public class FactoriserTest {
         assertEquals("2*5", Factoriser.sieveFactoriser(10) );
     }
 
-    @Test(expected = NumberFormatException.class)
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void sieveFactoriserExceptionTest()  {
         Factoriser.sieveFactoriser(-1);
     }
