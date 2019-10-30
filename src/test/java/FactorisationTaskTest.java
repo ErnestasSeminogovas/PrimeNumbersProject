@@ -6,6 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
 public class FactorisationTaskTest {
 
@@ -87,5 +88,20 @@ public class FactorisationTaskTest {
         factorisationThread.call();
     }
 
+    @Test(expected = InterruptedException.class)
+    public void testThreadInterruptedException() throws Exception {
+        FactorisationTask factorisationThread = new FactorisationTask(
+            100000,
+            200000,
+            10000,
+            "asd.txt",
+            "Regular",
+            new Factoriser()
+        );
 
+        when(factorisationThread.call()).thenThrow(InterruptedException.class);
+
+        factorisationThread.call();
+
+    }
 }

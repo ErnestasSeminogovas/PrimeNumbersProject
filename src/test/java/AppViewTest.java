@@ -1,9 +1,14 @@
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+
 import factorisation.AppController;
 import factorisation.AppView;
+import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 public class AppViewTest {
 
@@ -12,59 +17,24 @@ public class AppViewTest {
 
   private AppView view;
 
-  @Before
-  public void setUp() throws Exception {
+  @Test
+  public void setupUIAndCloseOk() {
     view = new AppView();
-  }
 
-  @Test
-  public void setController() {
-    AppController controller = new AppController(view);
-    view.setController(controller);
-  }
+    AppController appController = Mockito.mock(AppController.class);
+    doNothing().when(appController).stopThread();
+    view.setController(appController);
 
-  @Test
-  public void setupUI() {
-    //view.setupUI(new Stage());
-  }
-
-  @Test
-  public void closeWindow() {
-    view = new AppView();
+    Stage stage = new Stage();
+    view.setupUI(stage);
     view.closeWindow();
   }
 
   @Test
   public void alertCreation() {
-    //view.alertCreation("Great","Job","You did it ");
+    view = new AppView();
+    view.alertCreation("asd","sss","sss");
+    view.closeAlert();
   }
 
-  @Test
-  public void getFirstNumberInput() {
-  }
-
-  @Test
-  public void getLastNumberInput() {
-  }
-
-  @Test
-  public void getIncreaseAmountInput() {
-  }
-
-  @Test
-  public void getStatusLabel() {
-  }
-
-  @Test
-  public void getProgressBar() {
-  }
-
-  @Test
-  public void getAlgorithmBox() {
-  }
-
-  @After
-  public void tearDown() throws Exception {
-
-  }
 }

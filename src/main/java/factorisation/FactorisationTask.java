@@ -1,5 +1,6 @@
 package factorisation;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import javafx.concurrent.Task;
 import java.util.concurrent.CancellationException;
 
@@ -24,9 +25,7 @@ public class FactorisationTask extends Task<Void> {
         return increaseAmount;
     }
 
-    public FactorisationTask() {
-
-    }
+    public FactorisationTask() {}
 
     public FactorisationTask(int firstNumber, int lastNumber, int increaseAmount, String file, String algorithm,
                              Factoriser factoriser) {
@@ -68,7 +67,7 @@ public class FactorisationTask extends Task<Void> {
                     factorisationResult = mainFactoriser.sieveFactoriser(i);
                 }
 
-                resultsWriter.factorisationResult(startTime, i, factorisationResult);
+                resultsWriter.printFactorisationResult(startTime, i, factorisationResult);
 
                 timeDifference = System.currentTimeMillis() - startTime;
 
@@ -86,6 +85,7 @@ public class FactorisationTask extends Task<Void> {
             }
         } catch (InterruptedException ex) {
             //if the thread is cancelled during sleep it throws an InterruptedException
+            Logger.logMsg(Logger.ERROR, ex.toString());
             if (isCancelled()) {
                 resultsWriter.newLine();
                 updateMessage("Skaldymas nutrauktas");
@@ -100,9 +100,8 @@ public class FactorisationTask extends Task<Void> {
             }
 
             resultsWriter.closeResultsWriter();
-
-            return null;
         }
+        return null;
     }
 
 

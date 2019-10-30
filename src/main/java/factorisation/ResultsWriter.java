@@ -1,23 +1,27 @@
 package factorisation;
 
-import com.sun.media.jfxmedia.logging.Logger;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ResultsWriter {
 
   private BufferedWriter bufferedWriter;
   private FileWriter fileWriter;
-  private DateFormat dateFormat;
+  private DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss:SSS");
   private String fileName;
 
   public ResultsWriter(String fileName) {
-    this.dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss:SSS");
     this.fileName = fileName;
+  }
+
+  public BufferedWriter getBufferedWriter() {
+    return bufferedWriter;
   }
 
   public void resultFileCreation() {
@@ -25,14 +29,22 @@ public class ResultsWriter {
       File file = new File(fileName);
       if (!file.exists()) {
         file.createNewFile();
-        FileWriter newFileWriter = new FileWriter(file);
-        BufferedWriter newBufferedWriter = new BufferedWriter(newFileWriter);
-        newFileWriter.write("");
-        newBufferedWriter.close();
-        newFileWriter.close();
+        fileWriter = new FileWriter(file);
+        bufferedWriter = new BufferedWriter(fileWriter);
+        fileWriter.write("");
+        bufferedWriter.close();
+        fileWriter.close();
       }
     } catch (IOException ex) {
-      Logger.logMsg(Logger.ERROR, ex.toString());
+      Logger.getAnonymousLogger().log(Level.SEVERE,ex.toString());
+    }
+  }
+
+  public void newLine() {
+    try {
+      bufferedWriter.newLine();
+    } catch (IOException ex) {
+      Logger.getAnonymousLogger().log(Level.SEVERE,ex.toString());
     }
   }
 
@@ -45,35 +57,27 @@ public class ResultsWriter {
       bufferedWriter.write(dateFormat.format(System.currentTimeMillis()) +
           " Skaičiavimo pradžia. Naudojami skaičiai: " +
           firstNumber + ", " + lastNumber + ", " + increaseAmount);
-      newLine();
+      bufferedWriter.newLine();
     } catch (IOException ex) {
+      Logger.getAnonymousLogger().log(Level.SEVERE,ex.toString());
     }
   }
 
-  public void factorisationResult(long startTime, int number, String result) {
+  public void printFactorisationResult(long startTime, int number, String result) {
     try {
       bufferedWriter.write(dateFormat.format(startTime) + " " + number + "=" +
           result);
     } catch (IOException ex) {
-      Logger.logMsg(Logger.ERROR, ex.toString());
+      Logger.getAnonymousLogger().log(Level.SEVERE,ex.toString());
     }
   }
-
-  public void newLine() {
-    try {
-      bufferedWriter.newLine();
-    } catch (IOException ex) {
-      Logger.logMsg(Logger.ERROR, ex.toString());
-    }
-  }
-
 
   public void resultsEnd() {
     try {
       bufferedWriter.write(dateFormat.format(System.currentTimeMillis()) + " Skaičiavimo pabaiga");
-      newLine();
+      bufferedWriter.newLine();
     } catch (IOException ex) {
-      Logger.logMsg(Logger.ERROR, ex.toString());
+      Logger.getAnonymousLogger().log(Level.SEVERE,ex.toString());
     }
   }
 
@@ -82,7 +86,7 @@ public class ResultsWriter {
       bufferedWriter.close();
       fileWriter.close();
     } catch (IOException ex) {
-      Logger.logMsg(Logger.ERROR, ex.toString());
+      Logger.getAnonymousLogger().log(Level.SEVERE,ex.toString());
     }
   }
 

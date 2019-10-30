@@ -53,7 +53,6 @@ public class AppController {
 
     }
 
-
     public void stopThread() {
         if (factorisationThread.isRunning()) {
             factorisationThread.cancel();
