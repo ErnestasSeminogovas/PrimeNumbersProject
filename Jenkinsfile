@@ -3,23 +3,17 @@ agent any
 stages {
 stage ('Compile Stage') {
 steps {
-withMaven(maven : 'apache-maven-3.6.1') {
-bat'mvn clean compile'
-}
+echo 'This is a minimal pipeline.'
 }
 }
 stage ('Testing Stage') {
 steps {
-withMaven(maven : 'apache-maven-3.6.1') {
-bat'mvn test'
-}
+echo 'This is a minimal pipeline.'
 }
 }
 stage ('Install Stage') {
 steps {
-withMaven(maven : 'apache-maven-3.6.1') {
-bat'mvn install'
-}
+echo 'This is a minimal pipeline.'
 }
 }
 }
