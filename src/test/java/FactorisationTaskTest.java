@@ -1,48 +1,39 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
 import factorisation.FactorisationTask;
-import factorisation.Factoriser;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import org.junit.Rule;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
+import org.junit.jupiter.api.Test;
 
 public class FactorisationTaskTest {
 
-    @Rule
-    public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
-
     @Test
     public void testComplexConstructorFirstNumber() {
-        FactorisationTask task = new FactorisationTask(10,20,30, "asd.txt", "algorithm.txt",
-                new Factoriser());
+        FactorisationTask task = new FactorisationTask(10,20,30, "asd.txt", "algorithm.txt");
         assertEquals(10, task.getFirstNumber());
     }
 
     @Test
     public void testComplexConstructorLastNumber() {
-        FactorisationTask task = new FactorisationTask(10,20,30, "asd.txt", "algorithm.txt",
-                new Factoriser());
+        FactorisationTask task = new FactorisationTask(10,20,30, "asd.txt", "algorithm.txt");
         assertEquals(20, task.getLastNumber());
     }
 
     @Test
     public void testComplexConstructorIncreaseAmountNumber() {
-        FactorisationTask task = new FactorisationTask(10,20,30, "asd.txt", "algorithm.txt",
-                new Factoriser());
+        FactorisationTask task = new FactorisationTask(10,20,30, "asd.txt", "algorithm.txt");
         assertNotEquals(41411, task.getIncreaseAmount());
     }
 
     @Test
-    public void testThreadRunnerRegular() throws Exception {
+    public void testThreadRunnerRegular() {
         FactorisationTask factorisationThread = new FactorisationTask(
                 10,
                 20,
                 1,
                 "asd.txt",
-                "Regular",
-                new Factoriser()
+                "Regular"
         );
         ProgressBar a = new ProgressBar();
         a.progressProperty().bind(factorisationThread.progressProperty());
@@ -53,14 +44,13 @@ public class FactorisationTaskTest {
     }
 
     @Test
-    public void testThreadRunnerSieve() throws Exception {
+    public void testThreadRunnerSieve() {
         FactorisationTask factorisationThread = new FactorisationTask(
                 10,
                 20,
                 1,
                 "asd.txt",
-                "Sieve",
-                new Factoriser()
+                "Sieve"
         );
         ProgressBar a = new ProgressBar();
         a.progressProperty().bind(factorisationThread.progressProperty());
@@ -71,14 +61,13 @@ public class FactorisationTaskTest {
     }
 
     @Test
-    public void testThreadRunnerBigNumbers() throws Exception {
+    public void testThreadRunnerBigNumbers() {
         FactorisationTask factorisationThread = new FactorisationTask(
                 100000,
                 200000,
                 10000,
                 "asd.txt",
-                "Regular",
-                new Factoriser()
+                "Regular"
         );
         ProgressBar a = new ProgressBar();
         a.progressProperty().bind(factorisationThread.progressProperty());
@@ -86,22 +75,5 @@ public class FactorisationTaskTest {
         b.textProperty().bind(factorisationThread.messageProperty());
 
         factorisationThread.call();
-    }
-
-    @Test(expected = InterruptedException.class)
-    public void testThreadInterruptedException() throws Exception {
-        FactorisationTask factorisationThread = new FactorisationTask(
-            100000,
-            200000,
-            10000,
-            "asd.txt",
-            "Regular",
-            new Factoriser()
-        );
-
-        when(factorisationThread.call()).thenThrow(InterruptedException.class);
-
-        factorisationThread.call();
-
     }
 }

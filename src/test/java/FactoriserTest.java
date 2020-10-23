@@ -1,7 +1,7 @@
 import factorisation.Factoriser;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FactoriserTest {
 
@@ -30,12 +30,6 @@ public class FactoriserTest {
     public void sieveFactoriser() {
         assertEquals("2*5", Factoriser.sieveFactoriser(10) );
     }
-
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
-    public void sieveFactoriserExceptionTest()  {
-        Factoriser.sieveFactoriser(-1);
-    }
-
 
     @Test
     public void getFactorisation() {
