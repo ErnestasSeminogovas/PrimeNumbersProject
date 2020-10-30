@@ -1,5 +1,6 @@
 package factorisation;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import javafx.concurrent.Task;
 import java.util.concurrent.CancellationException;
 
@@ -9,6 +10,7 @@ public class FactorisationTask extends Task<Void> {
     private int lastNumber;
     private int increaseAmount;
     private String fileName;
+    private Factoriser mainFactoriser;
     private String algorithm;
 
     public int getFirstNumber() {
@@ -25,12 +27,14 @@ public class FactorisationTask extends Task<Void> {
 
     public FactorisationTask() {}
 
-    public FactorisationTask(int firstNumber, int lastNumber, int increaseAmount, String file, String algorithm) {
+    public FactorisationTask(int firstNumber, int lastNumber, int increaseAmount, String file, String algorithm,
+                             Factoriser factoriser) {
         this.firstNumber = firstNumber;
         this.lastNumber = lastNumber;
         this.increaseAmount = increaseAmount;
         this.fileName = file;
         this.algorithm = algorithm;
+        this.mainFactoriser = factoriser;
     }
 
     @Override
@@ -57,10 +61,10 @@ public class FactorisationTask extends Task<Void> {
 
                 startTime = System.currentTimeMillis();
                 if(algorithm.equals("Regular")) {
-                    factorisationResult = Factoriser.regularFactoriser(i);
+                    factorisationResult = mainFactoriser.regularFactoriser(i);
                 }
                 else {
-                    factorisationResult = Factoriser.sieveFactoriser(i);
+                    factorisationResult = mainFactoriser.sieveFactoriser(i);
                 }
 
                 resultsWriter.printFactorisationResult(startTime, i, factorisationResult);
@@ -81,6 +85,7 @@ public class FactorisationTask extends Task<Void> {
             }
         } catch (InterruptedException ex) {
             //if the thread is cancelled during sleep it throws an InterruptedException
+            Logger.logMsg(Logger.ERROR, ex.toString());
             if (isCancelled()) {
                 resultsWriter.newLine();
                 updateMessage("Skaldymas nutrauktas");

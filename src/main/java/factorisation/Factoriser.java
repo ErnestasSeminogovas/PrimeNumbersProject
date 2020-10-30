@@ -11,9 +11,10 @@ public class Factoriser {
    *
    * @param number - the number for which we need to get the prime factors
    */
+
   public static String regularFactoriser(int number) {
 
-    StringBuilder result = new StringBuilder();
+    String result = "";
 
     if (number == 0 || number < 0) {
       return null;
@@ -22,9 +23,9 @@ public class Factoriser {
     while (number % 2 == 0) {
       number /= 2;
       if (number == 1) {
-        result.append("2");
+        result += "2";
       } else {
-        result.append("2*");
+        result += "2*";
       }
     }
 
@@ -32,37 +33,37 @@ public class Factoriser {
       while (number % i == 0) {
         number /= i;
         if (number == 1) {
-          result.append(i);
+          result += i;
         } else {
-          result.append(i).append("*");
+          result += (i + "*");
         }
       }
     }
 
     if (number > 2) {
-      result.append(number);
+      result += (number);
     }
-    return result.toString();
+    return result;
   }
 
   public static String sieveFactoriser(int number) {
-    StringBuilder result = new StringBuilder();
+    String result = "";
     int[] smallestPrimeFactor = new int[MAXN];
     sieve(smallestPrimeFactor);
     Vector<Integer> primeNumbers = getFactorisation(number, smallestPrimeFactor);
 
-    for (Integer primeNumber : primeNumbers) {
-      if (result.length() > 0) {
-        result.append("*").append(primeNumber);
+    for (int i = 0; i < primeNumbers.size(); i++) {
+      if (!result.isEmpty()) {
+        result += "*" + primeNumbers.get(i);
       } else {
-        result.append(primeNumber);
+        result += primeNumbers.get(i);
       }
     }
 
-    return result.toString();
+    return result;
   }
 
-  private static Vector<Integer> getFactorisation(int number, int[] smallestPrimeFactor) {
+  static Vector<Integer> getFactorisation(int number, int[] smallestPrimeFactor) {
     Vector<Integer> ret = new Vector<>();
     while (number != 1) {
       ret.add(smallestPrimeFactor[number]);
@@ -71,25 +72,26 @@ public class Factoriser {
     return ret;
   }
 
-  private static int[] sieve(int[] smallestPrimeFactor) {
+  static private int[] sieve(int[] smallestPrimeFactor) {
     smallestPrimeFactor[1] = 1;
-    for (int i = 2; i < MAXN; i++) {
-      smallestPrimeFactor[i] = i;
-    }
+      for (int i = 2; i < MAXN; i++) {
+          smallestPrimeFactor[i] = i;
+      }
 
-    for (int i = 4; i < MAXN; i += 2) {
-      smallestPrimeFactor[i] = 2;
-    }
+      for (int i = 4; i < MAXN; i += 2) {
+          smallestPrimeFactor[i] = 2;
+      }
 
     for (int i = 3; i * i < MAXN; i++) {
       if (smallestPrimeFactor[i] == i) {
-        for (int j = i * i; j < MAXN; j += i) {
-          if (smallestPrimeFactor[j] == j) {
-            smallestPrimeFactor[j] = i;
+          for (int j = i * i; j < MAXN; j += i) {
+              if (smallestPrimeFactor[j] == j) {
+                  smallestPrimeFactor[j] = i;
+              }
           }
-        }
       }
     }
     return smallestPrimeFactor;
   }
+
 }

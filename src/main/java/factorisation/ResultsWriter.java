@@ -13,8 +13,8 @@ public class ResultsWriter {
 
   private BufferedWriter bufferedWriter;
   private FileWriter fileWriter;
-  private final DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss:SSS");
-  private final String fileName;
+  private DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss:SSS");
+  private String fileName;
 
   public ResultsWriter(String fileName) {
     this.fileName = fileName;

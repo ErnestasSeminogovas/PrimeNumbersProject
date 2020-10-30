@@ -2,14 +2,18 @@ package factorisation;
 
 public class AppController {
 
-    private final AppView view;
+    private AppView view;
     private FactorisationTask factorisationThread;
-    private final String factorisationFileName;
+    private String factorisationFileName;
+    private Factoriser factoriser;
+    private InputParser parser;
 
     public AppController(AppView view) {
         this.view = view;
         this.factorisationThread = new FactorisationTask();
         this.factorisationFileName = "rezultatai.txt";
+        this.factoriser = new Factoriser();
+        this.parser = new InputParser();
     }
 
     public void alertCreation(String title, String headerText, String contentText) {
@@ -19,9 +23,9 @@ public class AppController {
     //creates a new thread or cancels if there was already an active one
     public void startThread() {
         try {
-            int firstNumberInput = InputParser.parseInput(view.getFirstNumberInput());
-            int lastNumberInput = InputParser.parseInput(view.getLastNumberInput());
-            int increaseAmountInput = InputParser.parseInput(view.getIncreaseAmountInput());
+            int firstNumberInput = parser.parseInput(view.getFirstNumberInput());
+            int lastNumberInput = parser.parseInput(view.getLastNumberInput());
+            int increaseAmountInput = parser.parseInput(view.getIncreaseAmountInput());
             String algorithm = view.getAlgorithmBox().getValue().toString();
 
             stopThread();
@@ -31,7 +35,8 @@ public class AppController {
                     lastNumberInput,
                     increaseAmountInput,
                     factorisationFileName,
-                    algorithm
+                    algorithm,
+                    factoriser
             );
 
             view.getProgressBar().progressProperty().bind(factorisationThread.progressProperty());
