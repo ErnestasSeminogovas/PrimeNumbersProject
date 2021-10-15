@@ -6,28 +6,28 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import org.junit.jupiter.api.Test;
 
-public class FactorisationTaskTest {
+class FactorisationTaskTest {
 
     @Test
-    public void testComplexConstructorFirstNumber() {
+    void testComplexConstructorFirstNumber() {
         FactorisationTask task = new FactorisationTask(10,20,30, "asd.txt", "algorithm.txt");
         assertEquals(10, task.getFirstNumber());
     }
 
     @Test
-    public void testComplexConstructorLastNumber() {
+    void testComplexConstructorLastNumber() {
         FactorisationTask task = new FactorisationTask(10,20,30, "asd.txt", "algorithm.txt");
         assertEquals(20, task.getLastNumber());
     }
 
     @Test
-    public void testComplexConstructorIncreaseAmountNumber() {
+    void testComplexConstructorIncreaseAmountNumber() {
         FactorisationTask task = new FactorisationTask(10,20,30, "asd.txt", "algorithm.txt");
         assertNotEquals(41411, task.getIncreaseAmount());
     }
 
     @Test
-    public void testThreadRunnerRegular() {
+    void testThreadRunnerRegular() {
         FactorisationTask factorisationThread = new FactorisationTask(
                 10,
                 20,
@@ -44,7 +44,7 @@ public class FactorisationTaskTest {
     }
 
     @Test
-    public void testThreadRunnerSieve() {
+    void testThreadRunnerSieve() {
         FactorisationTask factorisationThread = new FactorisationTask(
                 10,
                 20,
@@ -61,7 +61,7 @@ public class FactorisationTaskTest {
     }
 
     @Test
-    public void testThreadRunnerBigNumbers() {
+    void testThreadRunnerBigNumbers() {
         FactorisationTask factorisationThread = new FactorisationTask(
                 100000,
                 200000,
